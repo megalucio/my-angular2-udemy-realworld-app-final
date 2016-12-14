@@ -9,17 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var NavbarComponent = (function () {
-    function NavbarComponent() {
+var UsersComponent = (function () {
+    function UsersComponent() {
     }
-    return NavbarComponent;
+    return UsersComponent;
 }());
-NavbarComponent = __decorate([
+UsersComponent = __decorate([
     core_1.Component({
-        selector: 'navbar',
-        templateUrl: './app/navbar-component.component.html'
+        selector: 'users',
+        template: "\n      <h2>Users</h2>\n  "
     }),
     __metadata("design:paramtypes", [])
-], NavbarComponent);
-exports.NavbarComponent = NavbarComponent;
-//# sourceMappingURL=navbar.component.js.map
+], UsersComponent);
+exports.UsersComponent = UsersComponent;
+//# sourceMappingURL=users.component.js.map

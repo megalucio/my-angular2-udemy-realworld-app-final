@@ -8,25 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var navbar_component_1 = require("./navbar.component");
 var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var app_component_1 = require("./app.component");
-var AppModule = (function () {
-    function AppModule() {
+var NavbarComponent = (function () {
+    function NavbarComponent() {
     }
-    return AppModule;
+    return NavbarComponent;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule],
-        declarations: [
-            app_component_1.AppComponent,
-            navbar_component_1.NavbarComponent
-        ],
-        bootstrap: [app_component_1.AppComponent]
+NavbarComponent = __decorate([
+    core_1.Component({
+        selector: 'navbar',
+        template: "\n      <nav class=\"navbar navbar-default\">\n        <div class=\"container-fluid\">\n          <div class=\"navbar-header\">\n            <a class=\"navbar-brand\" href=\"#\">ngProject</a>\n          </div>\n          <div class=\"collapse navbar-collapse\">\n            <ul class=\"nav navbar-nav\">\n              <li><a href=\"#\">Users</a></li>\n              <li><a href=\"#\">Posts</a></li>\n            </ul>\n          </div>\n        </div>\n      </nav>\n  "
     }),
     __metadata("design:paramtypes", [])
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], NavbarComponent);
+exports.NavbarComponent = NavbarComponent;
+//# sourceMappingURL=navbar.component.js.map

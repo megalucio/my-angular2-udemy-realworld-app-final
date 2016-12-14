@@ -17,7 +17,7 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     core_1.Component({
         selector: 'my-app',
-        template: "\n      <nav class=\"navbar navbar-default\">\n        <div class=\"container-fluid\">\n          <div class=\"navbar-header\">\n            <a class=\"navbar-brand\" href=\"#\">ngProject</a>\n          </div>\n          <div class=\"collapse navbar-collapse\">\n            <ul class=\"nav navbar-nav\">\n              <li><a href=\"#\">Users</a></li>\n              <li><a href=\"#\">Posts</a></li>\n            </ul>\n          </div>\n        </div>\n      </nav>\n  "
+        template: "\n      <navbar></navbar>\n  "
     }),
     __metadata("design:paramtypes", [])
 ], AppComponent);

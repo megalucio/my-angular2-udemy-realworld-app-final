@@ -13,15 +13,7 @@ export class NavbarComponent {
 
   constructor(private _router: Router){} 
 
-  onClick(){
-
-    this.usersActive = false;
-    this.postsActive = false;
-
-    if(this._router.isActive('users', true))
-      this.usersActive =true;
-    else if(this._router.isActive('posts', true))
-      this.postsActive =true;
-
+  isCurrentRoute(route){
+    return this._router.isActive(route,true);
   }
 }

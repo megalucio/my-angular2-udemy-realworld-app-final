@@ -16,13 +16,8 @@ var NavbarComponent = (function () {
         this.usersActive = false;
         this.postsActive = false;
     }
-    NavbarComponent.prototype.onClick = function () {
-        this.usersActive = false;
-        this.postsActive = false;
-        if (this._router.isActive('users', true))
-            this.usersActive = true;
-        else if (this._router.isActive('posts', true))
-            this.postsActive = true;
+    NavbarComponent.prototype.isCurrentRoute = function (route) {
+        return this._router.isActive(route, true);
     };
     return NavbarComponent;
 }());

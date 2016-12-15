@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var users_service_1 = require("./users.service");
 var posts_component_1 = require("./posts.component");
 var users_component_1 = require("./users.component");
 var home_component_1 = require("./home.component");
@@ -16,6 +17,7 @@ var navbar_component_1 = require("./navbar.component");
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var app_component_1 = require("./app.component");
+var http_1 = require("@angular/http");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -24,6 +26,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [
+            http_1.HttpModule,
             platform_browser_1.BrowserModule,
             app_routing_1.routing
         ],
@@ -33,6 +36,9 @@ AppModule = __decorate([
             home_component_1.HomeComponent,
             users_component_1.UsersComponent,
             posts_component_1.PostsComponent
+        ],
+        providers: [
+            users_service_1.UsersService
         ],
         bootstrap: [app_component_1.AppComponent]
     }),

@@ -1,6 +1,7 @@
 import { UsersService } from './users.service';
 import { PostsComponent } from './posts.component';
 import { UsersComponent } from './users.component';
+import { UserComponent } from './user.component';
 import { HomeComponent } from './home.component';
 import { routing } from './app.routing';
 import { NavbarComponent } from './navbar.component';
@@ -9,10 +10,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent }   from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   imports:      
   [ 
+    FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     BrowserModule,
     routing
@@ -23,6 +27,7 @@ import { HttpModule } from '@angular/http';
     NavbarComponent,
     HomeComponent,
     UsersComponent,
+    UserComponent,
     PostsComponent
   ],
   providers:

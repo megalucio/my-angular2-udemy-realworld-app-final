@@ -1,3 +1,4 @@
+import { NavbarComponent } from './navbar.component';
 import { UsersService } from './users.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -6,25 +7,31 @@ import { Component, OnInit } from '@angular/core';
   selector: 'users',
   template: `
       <h2>Users</h2>
-
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{user.name}}</td>
-            <td>{{user.email}}</td>
-            <td><i class="glyphicon glyphicon-edit"></i></td>
-            <td><i class="glyphicon glyphicon-remove"></i></td>
-          </tr>
-         </tbody>
-      </table>
+      <br>
+      <div>
+        <a class="btn btn-primary" routerLink='/user'>Add User</a>
+      </div>
+      <br>
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td><i class="glyphicon glyphicon-edit"></i></td>
+              <td><i class="glyphicon glyphicon-remove"></i></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
   `
 })
 

@@ -24,7 +24,7 @@ var UsersComponent = (function () {
 UsersComponent = __decorate([
     core_1.Component({
         selector: 'users',
-        template: "\n      <h2>Users</h2>\n\n      <table class=\"table table-bordered\">\n        <thead>\n          <tr>\n            <th>Name</th>\n            <th>Email</th>\n            <th>Edit</th>\n            <th>Delete</th>\n          </tr>\n        </thead>\n        <tbody>\n          <tr *ngFor=\"let user of users\">\n            <td>{{user.name}}</td>\n            <td>{{user.email}}</td>\n            <td><i class=\"glyphicon glyphicon-edit\"></i></td>\n            <td><i class=\"glyphicon glyphicon-remove\"></i></td>\n          </tr>\n         </tbody>\n      </table>\n  "
+        template: "\n      <h2>Users</h2>\n      <br>\n      <div>\n        <a class=\"btn btn-primary\" routerLink='/user'>Add User</a>\n      </div>\n      <br>\n      <div>\n        <table class=\"table table-bordered\">\n          <thead>\n            <tr>\n              <th>Name</th>\n              <th>Email</th>\n              <th>Edit</th>\n              <th>Delete</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr *ngFor=\"let user of users\">\n              <td>{{user.name}}</td>\n              <td>{{user.email}}</td>\n              <td><i class=\"glyphicon glyphicon-edit\"></i></td>\n              <td><i class=\"glyphicon glyphicon-remove\"></i></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n  "
     }),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersComponent);

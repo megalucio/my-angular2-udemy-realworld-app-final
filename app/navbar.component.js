@@ -9,9 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
 var NavbarComponent = (function () {
-    function NavbarComponent() {
+    function NavbarComponent(_router) {
+        this._router = _router;
+        this.usersActive = false;
+        this.postsActive = false;
     }
+    NavbarComponent.prototype.onClick = function () {
+        this.usersActive = false;
+        this.postsActive = false;
+        if (this._router.isActive('users', true))
+            this.usersActive = true;
+        else if (this._router.isActive('posts', true))
+            this.postsActive = true;
+    };
     return NavbarComponent;
 }());
 NavbarComponent = __decorate([
@@ -19,7 +31,7 @@ NavbarComponent = __decorate([
         selector: 'navbar',
         templateUrl: './app/navbar-component.component.html'
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [router_1.Router])
 ], NavbarComponent);
 exports.NavbarComponent = NavbarComponent;
 //# sourceMappingURL=navbar.component.js.map

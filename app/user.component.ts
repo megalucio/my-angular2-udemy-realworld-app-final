@@ -96,11 +96,9 @@ export class UserComponent {
 
     onSaveUser(){
 
-        console.log(this.userForm.value);
-
         this._usersService.createUser(this.userForm.value)
             .subscribe(
-                user => console.log(user), 
+                user => console.log("User Created"), 
                 error => console.error(error),
                 () => {
                         this.userForm.reset();

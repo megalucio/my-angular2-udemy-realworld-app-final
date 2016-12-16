@@ -31,9 +31,8 @@ var UserComponent = (function () {
     }
     UserComponent.prototype.onSaveUser = function () {
         var _this = this;
-        console.log(this.userForm.value);
         this._usersService.createUser(this.userForm.value)
-            .subscribe(function (user) { return console.log(user); }, function (error) { return console.error(error); }, function () {
+            .subscribe(function (user) { return console.log("User Created"); }, function (error) { return console.error(error); }, function () {
             _this.userForm.reset();
             _this._router.navigate(['users']);
         });

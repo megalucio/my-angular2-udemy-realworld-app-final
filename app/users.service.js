@@ -20,6 +20,10 @@ var UsersService = (function () {
         return this._http.get(this.usersUrl)
             .map(function (res) { return res.json(); });
     };
+    UsersService.prototype.createUser = function (user) {
+        return this._http.post(this.usersUrl, user)
+            .map(function (res) { return res.json(); });
+    };
     return UsersService;
 }());
 UsersService = __decorate([

@@ -17,4 +17,9 @@ export class UsersService{
             .map(res => res.json());
     }
 
+    createUser(user){
+        return this._http.post(this.usersUrl, user)
+            .map(res => res.json());
+    }
+
 }

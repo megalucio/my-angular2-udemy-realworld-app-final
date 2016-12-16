@@ -1,3 +1,4 @@
+import { UserValidators } from './user.validators';
 import { UsersService } from './users.service';
 import { Component} from '@angular/core';
 
@@ -16,10 +17,26 @@ import  {FormGroup, FormBuilder, Validators}   from '@angular/forms';
                     <div class="form-group">
                         <label>Name</label>
                         <input class="form-control" formControlName="name"/>
+                        <div 
+                        *ngIf="
+                            this.userForm.controls['user'].controls['name'].invalid &&
+                            this.userForm.controls['user'].controls['name'].touched
+                            "
+                        class="alert alert-danger">
+                            Name is required
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
                         <input class="form-control" formControlName="email"/>
+                         <div 
+                        *ngIf="
+                            this.userForm.controls['user'].controls['email'].invalid &&
+                            this.userForm.controls['user'].controls['email'].touched
+                            "
+                        class="alert alert-danger">
+                            A valid email is required
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Phone</label>
@@ -45,7 +62,7 @@ import  {FormGroup, FormBuilder, Validators}   from '@angular/forms';
                         <input class="form-control" formControlName="zipCode"/>
                     </div>
                 </fieldset>
-                <button type="submit" class="btn btn-default">Save</button>
+                <button [disabled]="userForm.invalid" type="submit" class="btn btn-default">Save</button>
             </form>
         </div>
     </div>
@@ -59,16 +76,19 @@ export class UserComponent {
         this.userForm = fb.group({
             user: fb.group({
                 name: ['',Validators.required],
-                email: ['',Validators.required],
-                phone: ['',Validators.required]
+                email: ['',Validators.compose([
+                            Validators.required, 
+                            UserValidators.shouldBeAnEmail
+                        ])],
+                phone: ['']
             }),
             adress: fb.group({
-                street: ['', Validators.required],
-                suite: ['', Validators.required],
-                city: ['', Validators.required],
-                zipCode: ['', Validators.required]
-            });
-        }); 
+                street: [''],
+                suite: [''],
+                city: [''],
+                zipCode: ['']
+            })
+        });
     }
 
 }

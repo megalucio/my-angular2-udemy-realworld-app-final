@@ -76,10 +76,7 @@ export class UserComponent {
         this.userForm = fb.group({
             user: fb.group({
                 name: ['',Validators.required],
-                email: ['',Validators.compose([
-                            Validators.required, 
-                            UserValidators.shouldBeAnEmail
-                        ])],
+                email: ['', UserValidators.email],
                 phone: ['']
             }),
             adress: fb.group({

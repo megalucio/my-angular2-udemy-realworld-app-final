@@ -16,10 +16,7 @@ var UserComponent = (function () {
         this.userForm = fb.group({
             user: fb.group({
                 name: ['', forms_1.Validators.required],
-                email: ['', forms_1.Validators.compose([
-                        forms_1.Validators.required,
-                        user_validators_1.UserValidators.shouldBeAnEmail
-                    ])],
+                email: ['', user_validators_1.UserValidators.email],
                 phone: ['']
             }),
             adress: fb.group({

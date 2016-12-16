@@ -18,11 +18,9 @@ var UserComponent = (function () {
         this._usersService = _usersService;
         this._router = _router;
         this.userForm = fb.group({
-            user: fb.group({
-                name: ['', forms_1.Validators.required],
-                email: ['', user_validators_1.UserValidators.email],
-                phone: ['']
-            }),
+            name: ['', forms_1.Validators.required],
+            email: ['', user_validators_1.UserValidators.email],
+            phone: [''],
             address: fb.group({
                 street: [''],
                 suite: [''],
@@ -33,17 +31,9 @@ var UserComponent = (function () {
     }
     UserComponent.prototype.onSaveUser = function () {
         var _this = this;
-        var user = {
-            name: this.userForm.controls['user'].controls['name'].value,
-            email: this.userForm.controls['user'].controls['email'].value,
-            phone: this.userForm.controls['user'].controls['phone'].value,
-            street: this.userForm.controls['address'].controls['street'].value,
-            suite: this.userForm.controls['address'].controls['suite'].value,
-            city: this.userForm.controls['address'].controls['city'].value,
-            zipCode: this.userForm.controls['address'].controls['zipCode'].value
-        };
-        this._usersService.createUser(user)
-            .subscribe(function (user) { return console.log("User created with name " + user.name); }, function (error) { return console.error(error); }, function () {
+        console.log(this.userForm.value);
+        this._usersService.createUser(this.userForm.value)
+            .subscribe(function (user) { return console.log(user); }, function (error) { return console.error(error); }, function () {
             _this.userForm.reset();
             _this._router.navigate(['users']);
         });
@@ -53,7 +43,7 @@ var UserComponent = (function () {
 UserComponent = __decorate([
     core_1.Component({
         selector: 'user',
-        template: "\n    <h2>Add a User</h2>\n\n    <div class=\"row\">\n        <div class=\"col-md-6 well\">\n            <form [formGroup]=\"userForm\">\n                <fieldset formGroupName=\"user\">\n                    <legend>User</legend>\n                    <div class=\"form-group\">\n                        <label>Name</label>\n                        <input class=\"form-control\" formControlName=\"name\"/>\n                        <div \n                        *ngIf=\"\n                            this.userForm.controls['user'].controls['name'].invalid &&\n                            this.userForm.controls['user'].controls['name'].touched\n                            \"\n                        class=\"alert alert-danger\">\n                            Name is required\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label>Email</label>\n                        <input class=\"form-control\" formControlName=\"email\"/>\n                         <div \n                        *ngIf=\"\n                            this.userForm.controls['user'].controls['email'].invalid &&\n                            this.userForm.controls['user'].controls['email'].touched\n                            \"\n                        class=\"alert alert-danger\">\n                            A valid email is required\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label>Phone</label>\n                        <input class=\"form-control\" formControlName=\"phone\"/>\n                    </div>\n                </fieldset>\n                <fieldset formGroupName=\"address\">\n                    <legend>Adress</legend>\n                    <div class=\"form-group\">\n                        <label>Street</label>\n                        <input class=\"form-control\" formControlName=\"street\"/>\n                    </div>\n                    <div class=\"form-group\">\n                        <label>Suite</label>\n                        <input class=\"form-control\" formControlName=\"suite\"/>\n                    </div>\n                    <div class=\"form-group\">\n                        <label>City</label>\n                        <input class=\"form-control\" formControlName=\"city\"/>\n                    </div>\n                    <div class=\"form-group\">\n                        <label>ZipCode</label>\n                        <input class=\"form-control\" formControlName=\"zipCode\"/>\n                    </div>\n                </fieldset>\n                <button \n                    [disabled]=\"userForm.invalid\" \n                    type=\"submit\" \n                    class=\"btn btn-default\"\n                    (click)= onSaveUser()>\n                        Save\n                </button>\n            </form>\n        </div>\n    </div>\n  "
+        template: "\n    <h2>Add a User</h2>\n\n    <div class=\"row\">\n        <div class=\"col-md-6 well\">\n            <form [formGroup]=\"userForm\" (ngSubmit)=\"onSaveUser()\">\n                <fieldset>\n                    <legend>User</legend>\n                    <div class=\"form-group\">\n                        <label>Name</label>\n                        <input class=\"form-control\" formControlName=\"name\"/>\n                        <div \n                        *ngIf=\"\n                            this.userForm.controls['name'].invalid &&\n                            this.userForm.controls['name'].touched\n                            \"\n                        class=\"alert alert-danger\">\n                            Name is required\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label>Email</label>\n                        <input class=\"form-control\" formControlName=\"email\"/>\n                         <div \n                        *ngIf=\"\n                            this.userForm.controls['email'].invalid &&\n                            this.userForm.controls['email'].touched\n                            \"\n                        class=\"alert alert-danger\">\n                            A valid email is required\n                        </div>\n                    </div>\n                    <div class=\"form-group\">\n                        <label>Phone</label>\n                        <input class=\"form-control\" formControlName=\"phone\"/>\n                    </div>\n                </fieldset>\n                <fieldset formGroupName=\"address\">\n                    <legend>Adress</legend>\n                    <div class=\"form-group\">\n                        <label>Street</label>\n                        <input class=\"form-control\" formControlName=\"street\"/>\n                    </div>\n                    <div class=\"form-group\">\n                        <label>Suite</label>\n                        <input class=\"form-control\" formControlName=\"suite\"/>\n                    </div>\n                    <div class=\"form-group\">\n                        <label>City</label>\n                        <input class=\"form-control\" formControlName=\"city\"/>\n                    </div>\n                    <div class=\"form-group\">\n                        <label>ZipCode</label>\n                        <input class=\"form-control\" formControlName=\"zipCode\"/>\n                    </div>\n                </fieldset>\n                <button \n                    [disabled]=\"userForm.invalid\" \n                    type=\"submit\" \n                    class=\"btn btn-default\">\n                        Save\n                </button>\n            </form>\n        </div>\n    </div>\n  "
     }),
     __metadata("design:paramtypes", [forms_1.FormBuilder, users_service_1.UsersService, router_1.Router])
 ], UserComponent);

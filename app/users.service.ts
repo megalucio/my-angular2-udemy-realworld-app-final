@@ -1,3 +1,4 @@
+import { User } from './user';
 import {Http} from '@angular/http';
 import {Injectable} from '@angular/core';
 
@@ -18,7 +19,7 @@ export class UsersService{
     }
 
     createUser(user){
-        return this._http.post(this.usersUrl, user)
+        return this._http.post(this.usersUrl, JSON.stringify(user))
             .map(res => res.json());
     }
 

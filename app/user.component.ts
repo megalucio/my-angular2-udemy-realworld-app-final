@@ -14,16 +14,16 @@ import {User} from './user';
 
     <div class="row">
         <div class="col-md-6 well">
-            <form [formGroup]="userForm">
-                <fieldset formGroupName="user">
+            <form [formGroup]="userForm" (ngSubmit)="onSaveUser()">
+                <fieldset>
                     <legend>User</legend>
                     <div class="form-group">
                         <label>Name</label>
                         <input class="form-control" formControlName="name"/>
                         <div 
                         *ngIf="
-                            this.userForm.controls['user'].controls['name'].invalid &&
-                            this.userForm.controls['user'].controls['name'].touched
+                            this.userForm.controls['name'].invalid &&
+                            this.userForm.controls['name'].touched
                             "
                         class="alert alert-danger">
                             Name is required
@@ -34,8 +34,8 @@ import {User} from './user';
                         <input class="form-control" formControlName="email"/>
                          <div 
                         *ngIf="
-                            this.userForm.controls['user'].controls['email'].invalid &&
-                            this.userForm.controls['user'].controls['email'].touched
+                            this.userForm.controls['email'].invalid &&
+                            this.userForm.controls['email'].touched
                             "
                         class="alert alert-danger">
                             A valid email is required
@@ -68,8 +68,7 @@ import {User} from './user';
                 <button 
                     [disabled]="userForm.invalid" 
                     type="submit" 
-                    class="btn btn-default"
-                    (click)= onSaveUser()>
+                    class="btn btn-default">
                         Save
                 </button>
             </form>
@@ -83,11 +82,9 @@ export class UserComponent {
 
     constructor(fb: FormBuilder, private _usersService: UsersService, private _router: Router){
         this.userForm = fb.group({
-            user: fb.group({
-                name: ['',Validators.required],
-                email: ['', UserValidators.email],
-                phone: ['']
-            }),
+            name: ['',Validators.required],
+            email: ['', UserValidators.email],
+            phone: [''],
             address: fb.group({
                 street: [''],
                 suite: [''],
@@ -99,19 +96,11 @@ export class UserComponent {
 
     onSaveUser(){
 
-        let user: User = {
-            name: this.userForm.controls['user'].controls['name'].value,
-            email: this.userForm.controls['user'].controls['email'].value,
-            phone: this.userForm.controls['user'].controls['phone'].value,
-            street: this.userForm.controls['address'].controls['street'].value,
-            suite: this.userForm.controls['address'].controls['suite'].value,
-            city: this.userForm.controls['address'].controls['city'].value,
-            zipCode: this.userForm.controls['address'].controls['zipCode'].value
-        }
+        console.log(this.userForm.value);
 
-        this._usersService.createUser(user)
+        this._usersService.createUser(this.userForm.value)
             .subscribe(
-                user => console.log("User created with name " + user.name), 
+                user => console.log(user), 
                 error => console.error(error),
                 () => {
                         this.userForm.reset();

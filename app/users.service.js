@@ -21,7 +21,7 @@ var UsersService = (function () {
             .map(function (res) { return res.json(); });
     };
     UsersService.prototype.createUser = function (user) {
-        return this._http.post(this.usersUrl, user)
+        return this._http.post(this.usersUrl, JSON.stringify(user))
             .map(function (res) { return res.json(); });
     };
     return UsersService;

@@ -22,8 +22,13 @@ export class UsersService{
             .map(res => res.json());
     }
 
-    saveUser(user){
+    createUser(user){
         return this._http.post(this.usersUrl, JSON.stringify(user))
+            .map(res => res.json());
+    }
+
+    modifyUser(userId, user){
+        return this._http.put(this.usersUrl + '/' + userId, JSON.stringify(user))
             .map(res => res.json());
     }
 

@@ -105,6 +105,7 @@ export class UserComponent implements OnInit{
     user = new User();
     
     title;
+    id;
 
     constructor(fb: FormBuilder, 
         private _usersService: UsersService, 
@@ -125,9 +126,9 @@ export class UserComponent implements OnInit{
 
     ngOnInit(){
 
-        let id = this._route.snapshot.params['id'];
+        this.id = this._route.snapshot.params['id'];
 
-        if(!id){
+        if(!this.id){
 
             this.title = 'New User';
 
@@ -135,7 +136,7 @@ export class UserComponent implements OnInit{
 
             this.title = 'Edit User';
 
-            this._usersService.getUser(id)
+            this._usersService.getUser(this.id)
             .subscribe(
                     user => this.user = user,
                     response => {
@@ -149,15 +150,29 @@ export class UserComponent implements OnInit{
 
     onSaveUser(){
 
-        this._usersService.saveUser(this.userForm.value)
-            .subscribe(
-                user => console.log("User Saved"), 
-                error => console.error(error),
-                () => {
-                        this.userForm.reset();
-                        this._router.navigate(['users']);
-                    }
-            );
+         if(!this.id){
+
+            this._usersService.createUser(this.user)
+                .subscribe(
+                    user => console.log("User Created"), 
+                    error => console.error(error),
+                    () => {
+                            this.userForm.reset();
+                            this._router.navigate(['users']);
+                        }
+                );
+         }
+         else{
+              this._usersService.modifyUser(this.id, this.user)
+                .subscribe(
+                    user => console.log("User Modified"), 
+                    error => console.error(error),
+                    () => {
+                            this.userForm.reset();
+                            this._router.navigate(['users']);
+                        }
+                );
+         }
     }
 
 }

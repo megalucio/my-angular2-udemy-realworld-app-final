@@ -18,7 +18,7 @@ export class UsersService{
     }
 
     getUser(userId){
-        return this._http.get(this.usersUrl + '/' + userId)
+        return this._http.get(this.getUserUrl(userId))
             .map(res => res.json());
     }
 
@@ -27,9 +27,13 @@ export class UsersService{
             .map(res => res.json());
     }
 
-    modifyUser(userId, user){
-        return this._http.put(this.usersUrl + '/' + userId, JSON.stringify(user))
+    modifyUser(user){
+        return this._http.put(this.getUserUrl(user.id), JSON.stringify(user))
             .map(res => res.json());
     }
+
+    private getUserUrl(userId){
+		return this.usersUrl + "/" + userId;
+	}
 
 }

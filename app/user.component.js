@@ -35,13 +35,13 @@ var UserComponent = (function () {
     }
     UserComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.id = this._route.snapshot.params['id'];
-        if (!this.id) {
+        var id = this._route.snapshot.params['id'];
+        if (!id) {
             this.title = 'New User';
         }
         else {
             this.title = 'Edit User';
-            this._usersService.getUser(this.id)
+            this._usersService.getUser(id)
                 .subscribe(function (user) { return _this.user = user; }, function (response) {
                 if (response.status == 404)
                     _this._router.navigate(['notfound']);
@@ -50,20 +50,15 @@ var UserComponent = (function () {
     };
     UserComponent.prototype.onSaveUser = function () {
         var _this = this;
-        if (!this.id) {
-            this._usersService.createUser(this.user)
-                .subscribe(function (user) { return console.log("User Created"); }, function (error) { return console.error(error); }, function () {
-                _this.userForm.reset();
-                _this._router.navigate(['users']);
-            });
-        }
-        else {
-            this._usersService.modifyUser(this.id, this.user)
-                .subscribe(function (user) { return console.log("User Modified"); }, function (error) { return console.error(error); }, function () {
-                _this.userForm.reset();
-                _this._router.navigate(['users']);
-            });
-        }
+        var result;
+        if (!this.user.id)
+            result = this._usersService.createUser(this.user);
+        else
+            result = this._usersService.modifyUser(this.user);
+        result.subscribe(function (user) { return console.log("User Modified/Created"); }, function (error) { return console.error(error); }, function () {
+            _this.userForm.reset();
+            _this._router.navigate(['users']);
+        });
     };
     return UserComponent;
 }());

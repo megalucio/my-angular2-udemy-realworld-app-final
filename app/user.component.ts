@@ -126,9 +126,9 @@ export class UserComponent implements OnInit{
 
     ngOnInit(){
 
-        this.id = this._route.snapshot.params['id'];
+        let id = this._route.snapshot.params['id'];
 
-        if(!this.id){
+        if(!id){
 
             this.title = 'New User';
 
@@ -136,7 +136,7 @@ export class UserComponent implements OnInit{
 
             this.title = 'Edit User';
 
-            this._usersService.getUser(this.id)
+            this._usersService.getUser(id)
             .subscribe(
                     user => this.user = user,
                     response => {
@@ -150,29 +150,21 @@ export class UserComponent implements OnInit{
 
     onSaveUser(){
 
-         if(!this.id){
+        let result;
 
-            this._usersService.createUser(this.user)
-                .subscribe(
-                    user => console.log("User Created"), 
-                    error => console.error(error),
-                    () => {
-                            this.userForm.reset();
-                            this._router.navigate(['users']);
-                        }
-                );
-         }
-         else{
-              this._usersService.modifyUser(this.id, this.user)
-                .subscribe(
-                    user => console.log("User Modified"), 
-                    error => console.error(error),
-                    () => {
-                            this.userForm.reset();
-                            this._router.navigate(['users']);
-                        }
-                );
-         }
+         if(!this.user.id)
+             result = this._usersService.createUser(this.user);
+         else
+              result = this._usersService.modifyUser(this.user);
+
+        result.subscribe(
+            user => console.log("User Modified/Created"), 
+            error => console.error(error),
+            () => {
+                this.userForm.reset();
+                this._router.navigate(['users']);
+                }
+        );
     }
 
 }

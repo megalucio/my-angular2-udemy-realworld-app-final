@@ -21,16 +21,19 @@ var UsersService = (function () {
             .map(function (res) { return res.json(); });
     };
     UsersService.prototype.getUser = function (userId) {
-        return this._http.get(this.usersUrl + '/' + userId)
+        return this._http.get(this.getUserUrl(userId))
             .map(function (res) { return res.json(); });
     };
     UsersService.prototype.createUser = function (user) {
         return this._http.post(this.usersUrl, JSON.stringify(user))
             .map(function (res) { return res.json(); });
     };
-    UsersService.prototype.modifyUser = function (userId, user) {
-        return this._http.put(this.usersUrl + '/' + userId, JSON.stringify(user))
+    UsersService.prototype.modifyUser = function (user) {
+        return this._http.put(this.getUserUrl(user.id), JSON.stringify(user))
             .map(function (res) { return res.json(); });
+    };
+    UsersService.prototype.getUserUrl = function (userId) {
+        return this.usersUrl + "/" + userId;
     };
     return UsersService;
 }());

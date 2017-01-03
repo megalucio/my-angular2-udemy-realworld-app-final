@@ -5,12 +5,14 @@ import { Component, OnInit} from '@angular/core';
 
 import  {FormGroup, FormBuilder, Validators}   from '@angular/forms';
 
+import {User} from './user';
+
 import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'user',
   template: `
-    <h2>{{action}} User</h2>
+    <h2>{{title}}</h2>
 
     <div class="row">
         <div class="col-md-6 well">
@@ -100,19 +102,9 @@ import 'rxjs/add/operator/switchMap';
 export class UserComponent implements OnInit{
 
     userForm;
-    user = {
-        name : '',
-        email: '',
-        phone: '',
-        address: {
-            street: '',
-            suite: '',
-            city: '',
-            zipcode:''
-        }
-    };
+    user = new User();
     
-    action;
+    title;
 
     constructor(fb: FormBuilder, 
         private _usersService: UsersService, 
@@ -133,24 +125,26 @@ export class UserComponent implements OnInit{
 
     ngOnInit(){
 
-        if(this._router.url === '/user'){
+        let id = this._route.snapshot.params['id'];
 
-            this.action = 'New ';
+        if(!id){
+
+            this.title = 'New User';
 
         }else{
 
-            this.action = 'Edit ';
+            this.title = 'Edit User';
 
-            this._route.params
-            .switchMap((params: Params) => this._usersService.getUser(params['id']))
+            this._usersService.getUser(id)
             .subscribe(
                     user => this.user = user,
-                    error => this._router.navigate(['notfound'])
-                );  
+                    response => {
+                        if(response.status == 404)
+                          this._router.navigate(['notfound']);
+                    }
+            );  
         }
-
-
-            
+   
     }
 
     onSaveUser(){

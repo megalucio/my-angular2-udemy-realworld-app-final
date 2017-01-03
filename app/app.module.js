@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var notfound_component_1 = require("./notfound.component");
 var prevent_unsaved_changes_guard_1 = require("./prevent-unsaved-changes-guard");
 var users_service_1 = require("./users.service");
 var posts_component_1 = require("./posts.component");
@@ -41,7 +42,8 @@ AppModule = __decorate([
             home_component_1.HomeComponent,
             users_component_1.UsersComponent,
             user_component_1.UserComponent,
-            posts_component_1.PostsComponent
+            posts_component_1.PostsComponent,
+            notfound_component_1.NotFoundComponent
         ],
         providers: [
             users_service_1.UsersService,

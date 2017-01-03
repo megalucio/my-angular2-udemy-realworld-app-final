@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './notfound.component';
 import { PreventUnsavedChangesGuard } from './prevent-unsaved-changes-guard';
 import { UsersService } from './users.service';
 import { PostsComponent } from './posts.component';
@@ -29,7 +30,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     HomeComponent,
     UsersComponent,
     UserComponent,
-    PostsComponent
+    PostsComponent,
+    NotFoundComponent
   ],
   providers:
   [

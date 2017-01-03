@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { NavbarComponent } from './navbar.component';
 import { UsersService } from './users.service';
 import { Component, OnInit } from '@angular/core';
@@ -5,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'users',
+  styles:[`
+      .glyphicon-edit:hover {
+        cursor: pointer;
+      }`
+    ],
   template: `
       <h2>Users</h2>
       <br>
@@ -26,24 +32,29 @@ import { Component, OnInit } from '@angular/core';
             <tr *ngFor="let user of users">
               <td>{{user.name}}</td>
               <td>{{user.email}}</td>
-              <td><i class="glyphicon glyphicon-edit"></i></td>
+              <td><i (click)="onEdit(user.id)" class="glyphicon glyphicon-edit"></i></td>
               <td><i class="glyphicon glyphicon-remove"></i></td>
             </tr>
           </tbody>
         </table>
       </div>
   `
+  
 })
 
 export class UsersComponent implements OnInit{
 
   users;
 
-  constructor(private _usersService: UsersService){} 
+  constructor(private _usersService: UsersService, private _router: Router){} 
 
   ngOnInit(){
     this._usersService.getUsers()
       .subscribe(users => this.users = users);
+  }
+
+  onEdit(userId){
+    this._router.navigate(['user', userId]);
   }
 
 

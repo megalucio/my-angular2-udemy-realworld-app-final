@@ -14,6 +14,12 @@ import { Component, OnInit } from '@angular/core';
             border-color: #ecf0f1; 
             color: #2c3e50;
         }
+        .clickable {
+          cursor: pointer;
+        }
+        .thumbnail {
+          border-radius: 100%;
+        } 
     `],
   template: `
       <h2>Posts</h2>
@@ -36,6 +42,17 @@ import { Component, OnInit } from '@angular/core';
           <div class="panel-body">
             {{currentPost.body}}
           </div>
+            <div *ngFor="let comment of comments" class="media">
+              <div class="media-left">
+                <a href="#">
+                  <img class="media-object thumbnail" src="http://lorempixel.com/80/80/people?random={{comment.id}}" alt="...">
+                </a>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">{{comment.name}}</h4>
+                {{comment.body}}
+              </div>
+            </div>
         </div>
       </div>
   `
@@ -43,6 +60,7 @@ import { Component, OnInit } from '@angular/core';
 export class PostsComponent implements OnInit{ 
 
   posts;
+  comments;
   isLoading = true;
   currentPost;
 
@@ -57,7 +75,13 @@ export class PostsComponent implements OnInit{
   }
 
   onSelectPost(post){
+    this.comments = [];
     this.currentPost = post;
+
+    this._postsService.getComments(post.id).subscribe(
+      comments => this.comments = comments,
+      error => console.log(error)
+    );
   }
 
 }

@@ -19,12 +19,16 @@ var PostsComponent = (function () {
         var _this = this;
         this._postsService.getPosts().subscribe(function (posts) { return _this.posts = posts; }, function (error) { return console.log(error); }, function () { return _this.isLoading = false; });
     };
+    PostsComponent.prototype.onSelectPost = function (post) {
+        this.currentPost = post;
+    };
     return PostsComponent;
 }());
 PostsComponent = __decorate([
     core_1.Component({
         selector: 'posts',
-        template: "\n      <h2>Posts</h2>\n      <spinner [visible]=\"isLoading\"></spinner>\n      <ul class=\"list-group col-md-6\">\n        <li *ngFor=\"let post of posts\" class=\"list-group-item\">{{post.title}}</li>\n      </ul>\n  "
+        styles: ["\n        .posts li { cursor: default; }\n        .posts li:hover { background: #ecf0f1; } \n        .list-group-item.active, \n        .list-group-item.active:hover, \n        .list-group-item.active:focus { \n            background-color: #ecf0f1;\n            border-color: #ecf0f1; \n            color: #2c3e50;\n        }\n    "],
+        template: "\n      <h2>Posts</h2>\n      <spinner [visible]=\"isLoading\"></spinner>\n      <div class=\"col-md-6\">\n      <ul class=\"list-group posts\">\n        <li *ngFor=\"let post of posts\" \n            class=\"list-group-item\" \n            (click)=onSelectPost(post) \n            [class.active]=\"currentPost == post\">\n              {{post.title}}\n        </li>\n      </ul>\n      </div>\n      <div *ngIf=\"currentPost\" class=\"col-md-6\">\n        <div class=\"panel panel-default\">\n          <div class=\"panel-heading\">\n            <h3 class=\"panel-title\">{{currentPost.title}}</h3>\n          </div>\n          <div class=\"panel-body\">\n            {{currentPost.body}}\n          </div>\n        </div>\n      </div>\n  "
     }),
     __metadata("design:paramtypes", [posts_service_1.PostsService])
 ], PostsComponent);

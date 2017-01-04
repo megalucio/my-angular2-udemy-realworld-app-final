@@ -13,17 +13,18 @@ var core_1 = require("@angular/core");
 var PostsComponent = (function () {
     function PostsComponent(_postsService) {
         this._postsService = _postsService;
+        this.loaded = false;
     }
     PostsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this._postsService.getPosts().subscribe(function (posts) { return _this.posts = posts; }, function (error) { return console.log(error); });
+        this._postsService.getPosts().subscribe(function (posts) { return _this.posts = posts; }, function (error) { return console.log(error); }, function () { return _this.loaded = true; });
     };
     return PostsComponent;
 }());
 PostsComponent = __decorate([
     core_1.Component({
         selector: 'posts',
-        template: "\n      <h2>Posts</h2>\n      <ul class=\"list-group col-md-6\">\n        <li *ngFor=\"let post of posts\" class=\"list-group-item\">{{post.title}}</li>\n      </ul>\n  "
+        template: "\n      <h2>Posts</h2>\n      <div *ngIf=\"!loaded\"><i class=\"fa fa-spinner fa-3x\"></i></div>\n      <ul class=\"list-group col-md-6\">\n        <li *ngFor=\"let post of posts\" class=\"list-group-item\">{{post.title}}</li>\n      </ul>\n  "
     }),
     __metadata("design:paramtypes", [posts_service_1.PostsService])
 ], PostsComponent);

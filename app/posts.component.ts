@@ -42,6 +42,7 @@ import { Component, OnInit } from '@angular/core';
           <div class="panel-body">
             {{currentPost.body}}
           </div>
+           <spinner [visible]="loadingComments"></spinner>
             <div *ngFor="let comment of comments" class="media">
               <div class="media-left">
                 <a href="#">
@@ -62,6 +63,7 @@ export class PostsComponent implements OnInit{
   posts;
   comments;
   isLoading = true;
+  loadingComments;
   currentPost;
 
   constructor(private _postsService: PostsService){}
@@ -78,9 +80,12 @@ export class PostsComponent implements OnInit{
     this.comments = [];
     this.currentPost = post;
 
+    this.loadingComments = true;
+
     this._postsService.getComments(post.id).subscribe(
       comments => this.comments = comments,
-      error => console.log(error)
+      error => console.log(error),
+      () => this.loadingComments = false
     );
   }
 

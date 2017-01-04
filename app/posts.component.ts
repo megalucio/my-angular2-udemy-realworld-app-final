@@ -23,7 +23,7 @@ import { Component, OnInit } from '@angular/core';
     `],
   template: `
       <h2>Posts</h2>
-      <spinner [visible]="isLoading"></spinner>
+      <spinner [visible]="postsLoading"></spinner>
       <div class="col-md-6">
       <ul class="list-group posts">
         <li *ngFor="let post of posts" 
@@ -62,7 +62,7 @@ export class PostsComponent implements OnInit{
 
   posts;
   comments;
-  isLoading = true;
+  postsLoading = true;
   loadingComments;
   currentPost;
 
@@ -72,7 +72,7 @@ export class PostsComponent implements OnInit{
     this._postsService.getPosts().subscribe(
       posts => this.posts = posts,
       error => console.log(error),
-      () => this.isLoading = false
+      () => this.postsLoading = false
     );
   }
 

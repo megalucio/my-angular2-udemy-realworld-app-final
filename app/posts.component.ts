@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'posts',
   template: `
       <h2>Posts</h2>
-      <div *ngIf="!loaded"><i class="fa fa-spinner fa-3x"></i></div>
+      <spinner [visible]="isLoading"></spinner>
       <ul class="list-group col-md-6">
         <li *ngFor="let post of posts" class="list-group-item">{{post.title}}</li>
       </ul>
@@ -15,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
 export class PostsComponent implements OnInit{ 
 
   posts;
-  loaded = false;
+  isLoading = true;
 
   constructor(private _postsService: PostsService){}
 
@@ -23,7 +23,7 @@ export class PostsComponent implements OnInit{
     this._postsService.getPosts().subscribe(
       posts => this.posts = posts,
       error => console.log(error),
-      () => this.loaded = true
+      () => this.isLoading = false
     );
   }
 

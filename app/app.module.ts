@@ -1,3 +1,4 @@
+import { SpinnerComponnent } from './spinner.component';
 import { PostsService } from './posts.service';
 import { NotFoundComponent } from './notfound.component';
 import { PreventUnsavedChangesGuard } from './prevent-unsaved-changes-guard';
@@ -32,7 +33,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     UsersComponent,
     UserComponent,
     PostsComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SpinnerComponnent
   ],
   providers:
   [

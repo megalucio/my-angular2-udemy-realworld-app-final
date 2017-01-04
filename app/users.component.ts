@@ -9,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
   styles:[`
       .glyphicon-edit:hover {
         cursor: pointer;
-      }`
+      }
+      .glyphicon-remove:hover {
+        cursor: pointer;
+      }
+      `
     ],
   template: `
       <h2>Users</h2>
@@ -32,8 +36,8 @@ import { Component, OnInit } from '@angular/core';
             <tr *ngFor="let user of users">
               <td>{{user.name}}</td>
               <td>{{user.email}}</td>
-              <td><i (click)="onEdit(user.id)" class="glyphicon glyphicon-edit"></i></td>
-              <td><i class="glyphicon glyphicon-remove"></i></td>
+              <td><i (click)="onEdit(user.id)" class="glyphicon glyphicon-edit clickable"></i></td>
+              <td><i (click)="onDelete(user)"class="glyphicon glyphicon-remove clickable"></i></td>
             </tr>
           </tbody>
         </table>
@@ -57,5 +61,21 @@ export class UsersComponent implements OnInit{
     this._router.navigate(['user', userId]);
   }
 
+   onDelete(user){
+      if (confirm("Are you sure you want to delete " + user.name + "?")) {
+		
+      let index = this.users.indexOf(user)
+
+      this.users.splice(index, 1);
+
+			this._usersService.deleteUser(user.id)
+				.subscribe(null, 
+					err => {
+						alert("Could not delete the user.");
+						this.users.splice(index, 0, user);
+					});
+		}
+
+   }
 
 }

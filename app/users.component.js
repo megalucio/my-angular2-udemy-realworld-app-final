@@ -24,14 +24,26 @@ var UsersComponent = (function () {
     UsersComponent.prototype.onEdit = function (userId) {
         this._router.navigate(['user', userId]);
     };
+    UsersComponent.prototype.onDelete = function (user) {
+        var _this = this;
+        if (confirm("Are you sure you want to delete " + user.name + "?")) {
+            var index_1 = this.users.indexOf(user);
+            this.users.splice(index_1, 1);
+            this._usersService.deleteUser(user.id)
+                .subscribe(null, function (err) {
+                alert("Could not delete the user.");
+                _this.users.splice(index_1, 0, user);
+            });
+        }
+    };
     return UsersComponent;
 }());
 UsersComponent = __decorate([
     core_1.Component({
         selector: 'users',
-        styles: ["\n      .glyphicon-edit:hover {\n        cursor: pointer;\n      }"
+        styles: ["\n      .glyphicon-edit:hover {\n        cursor: pointer;\n      }\n      .glyphicon-remove:hover {\n        cursor: pointer;\n      }\n      "
         ],
-        template: "\n      <h2>Users</h2>\n      <br>\n      <div>\n        <a class=\"btn btn-primary\" routerLink='/user'>Add User</a>\n      </div>\n      <br>\n      <div>\n        <table class=\"table table-bordered\">\n          <thead>\n            <tr>\n              <th>Name</th>\n              <th>Email</th>\n              <th>Edit</th>\n              <th>Delete</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr *ngFor=\"let user of users\">\n              <td>{{user.name}}</td>\n              <td>{{user.email}}</td>\n              <td><i (click)=\"onEdit(user.id)\" class=\"glyphicon glyphicon-edit\"></i></td>\n              <td><i class=\"glyphicon glyphicon-remove\"></i></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n  "
+        template: "\n      <h2>Users</h2>\n      <br>\n      <div>\n        <a class=\"btn btn-primary\" routerLink='/user'>Add User</a>\n      </div>\n      <br>\n      <div>\n        <table class=\"table table-bordered\">\n          <thead>\n            <tr>\n              <th>Name</th>\n              <th>Email</th>\n              <th>Edit</th>\n              <th>Delete</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr *ngFor=\"let user of users\">\n              <td>{{user.name}}</td>\n              <td>{{user.email}}</td>\n              <td><i (click)=\"onEdit(user.id)\" class=\"glyphicon glyphicon-edit clickable\"></i></td>\n              <td><i (click)=\"onDelete(user)\"class=\"glyphicon glyphicon-remove clickable\"></i></td>\n            </tr>\n          </tbody>\n        </table>\n      </div>\n  "
     }),
     __metadata("design:paramtypes", [users_service_1.UsersService, router_1.Router])
 ], UsersComponent);

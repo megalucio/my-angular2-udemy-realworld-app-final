@@ -1,3 +1,4 @@
+import { PostsService } from './posts.service';
 import { NotFoundComponent } from './notfound.component';
 import { PreventUnsavedChangesGuard } from './prevent-unsaved-changes-guard';
 import { UsersService } from './users.service';
@@ -36,6 +37,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
   providers:
   [
     UsersService,
+    PostsService,
     PreventUnsavedChangesGuard
   ],
   bootstrap:    [ AppComponent ]

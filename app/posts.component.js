@@ -8,18 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var posts_service_1 = require("./posts.service");
 var core_1 = require("@angular/core");
 var PostsComponent = (function () {
-    function PostsComponent() {
+    function PostsComponent(_postsService) {
+        this._postsService = _postsService;
     }
+    PostsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this._postsService.getPosts().subscribe(function (posts) { return _this.posts = posts; }, function (error) { return console.log(error); });
+    };
     return PostsComponent;
 }());
 PostsComponent = __decorate([
     core_1.Component({
         selector: 'posts',
-        template: "\n      <h2>Posts</h2>\n  "
+        template: "\n      <h2>Posts</h2>\n      <ul class=\"list-group col-md-6\">\n        <li *ngFor=\"let post of posts\" class=\"list-group-item\">{{post.title}}</li>\n      </ul>\n  "
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [posts_service_1.PostsService])
 ], PostsComponent);
 exports.PostsComponent = PostsComponent;
 //# sourceMappingURL=posts.component.js.map

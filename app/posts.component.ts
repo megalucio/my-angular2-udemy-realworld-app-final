@@ -26,14 +26,12 @@ import { Component, OnInit } from '@angular/core';
   template: `
       
       <h2>Posts</h2>
-      <spinner [visible]="postsLoading"></spinner>
       <div class="col-md-6">
-
-      <select #u (change)="onSelectUser(u.value)" name="users" class="form-control">
+      <select #u (change)="onSelectUser({userId: u.value})" name="users" class="form-control">
         <option value="">Select a User...</option>
         <option *ngFor="let user of users" value={{user.id}}>{{user.name}}</option>
       </select>
-
+      <spinner [visible]="postsLoading"></spinner>
       <ul class="list-group posts">
         <li *ngFor="let post of posts" 
             class="list-group-item" 
@@ -75,7 +73,7 @@ export class PostsComponent implements OnInit{
   posts;
   comments;
   users;
-  postsLoading = true;
+  postsLoading;
   loadingComments;
   currentPost;
 
@@ -85,16 +83,26 @@ export class PostsComponent implements OnInit{
   {}
 
   ngOnInit(){
-    this._postsService.getPosts().subscribe(
-      posts => this.posts = posts,
-      error => console.log(error),
-      () => this.postsLoading = false
-    );
+    this.loadPosts();
+    this.loadUsers();
+  }
 
+  private loadUsers(){
     this._usersService.getUsers().subscribe(
-      users => this.users = users,
-      error => console.log(error)
-    );
+          users => this.users = users,
+          error => console.log(error)
+        );
+  }
+
+  private loadPosts(filter?){
+
+    this.postsLoading = true;
+
+    this._postsService.getPosts(filter).subscribe(
+          posts => this.posts = posts,
+          error => console.log(error),
+          () => this.postsLoading = false
+        );
   }
 
   onSelectPost(post){
@@ -110,21 +118,8 @@ export class PostsComponent implements OnInit{
     );
   }
 
-  onSelectUser(userId){
-
-    this.postsLoading = true;
-    let result;
-
-    if(userId)
-      result = this._postsService.getPostsFromUser(userId);
-    else
-      result = this._postsService.getPosts();
-
-    result.subscribe(
-      posts => this.posts = posts,
-      error => console.log(error),
-      () => this.postsLoading = false
-    );
+  onSelectUser(filter?){
+    this.loadPosts(filter);
   }
 
 }

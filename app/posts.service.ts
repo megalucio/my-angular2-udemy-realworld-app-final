@@ -12,13 +12,13 @@ export class PostsService{
 
     constructor(private _http: Http){}
 
-    getPosts(){
-        return this._http.get(this.postsUrl)
-            .map(res => res.json());
-    }
+    getPosts(filter?){
 
-    getPostsFromUser(userId){
-        return this._http.get(this.postsUrl + '?userId=' + userId)
+        let url = this.postsUrl;
+
+        if(filter)
+            url += "?userId=" + filter.userId;
+        return this._http.get(url)
             .map(res => res.json());
     }
     

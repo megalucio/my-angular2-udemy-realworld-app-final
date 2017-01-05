@@ -16,12 +16,11 @@ var PostsService = (function () {
         this._http = _http;
         this.postsUrl = "https://jsonplaceholder.typicode.com/posts";
     }
-    PostsService.prototype.getPosts = function () {
-        return this._http.get(this.postsUrl)
-            .map(function (res) { return res.json(); });
-    };
-    PostsService.prototype.getPostsFromUser = function (userId) {
-        return this._http.get(this.postsUrl + '?userId=' + userId)
+    PostsService.prototype.getPosts = function (filter) {
+        var url = this.postsUrl;
+        if (filter)
+            url += "?userId=" + filter.userId;
+        return this._http.get(url)
             .map(function (res) { return res.json(); });
     };
     PostsService.prototype.getComments = function (postId) {

@@ -16,6 +16,11 @@ export class PostsService{
         return this._http.get(this.postsUrl)
             .map(res => res.json());
     }
+
+    getPostsFromUser(userId){
+        return this._http.get(this.postsUrl + '?userId=' + userId)
+            .map(res => res.json());
+    }
     
     getComments(postId){
         return this._http.get(this.getPostUrl(postId) + '/comments')

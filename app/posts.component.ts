@@ -1,3 +1,5 @@
+import { UsersService } from './users.service';
+import { User } from './user';
 import { Validators } from '@angular/forms';
 import { PostsService } from './posts.service';
 import { Component, OnInit } from '@angular/core';
@@ -22,9 +24,16 @@ import { Component, OnInit } from '@angular/core';
         } 
     `],
   template: `
+      
       <h2>Posts</h2>
       <spinner [visible]="postsLoading"></spinner>
       <div class="col-md-6">
+
+      <select #u (change)="onSelectUser(u.value)" name="users" class="form-control">
+        <option value="">Select a User...</option>
+        <option *ngFor="let user of users" value={{user.id}}>{{user.name}}</option>
+      </select>
+
       <ul class="list-group posts">
         <li *ngFor="let post of posts" 
             class="list-group-item" 
@@ -46,7 +55,10 @@ import { Component, OnInit } from '@angular/core';
             <div *ngFor="let comment of comments" class="media">
               <div class="media-left">
                 <a href="#">
-                  <img class="media-object thumbnail" src="http://lorempixel.com/80/80/people?random={{comment.id}}" alt="...">
+                  <img 
+                    class="media-object thumbnail" 
+                    src="http://lorempixel.com/80/80/people?random={{comment.id}}" 
+                    alt="...">
                 </a>
               </div>
               <div class="media-body">
@@ -62,17 +74,26 @@ export class PostsComponent implements OnInit{
 
   posts;
   comments;
+  users;
   postsLoading = true;
   loadingComments;
   currentPost;
 
-  constructor(private _postsService: PostsService){}
+  constructor(
+    private _postsService: PostsService, 
+    private _usersService: UsersService)
+  {}
 
   ngOnInit(){
     this._postsService.getPosts().subscribe(
       posts => this.posts = posts,
       error => console.log(error),
       () => this.postsLoading = false
+    );
+
+    this._usersService.getUsers().subscribe(
+      users => this.users = users,
+      error => console.log(error)
     );
   }
 
@@ -86,6 +107,23 @@ export class PostsComponent implements OnInit{
       comments => this.comments = comments,
       error => console.log(error),
       () => this.loadingComments = false
+    );
+  }
+
+  onSelectUser(userId){
+
+    this.postsLoading = true;
+    let result;
+
+    if(userId)
+      result = this._postsService.getPostsFromUser(userId);
+    else
+      result = this._postsService.getPosts();
+
+    result.subscribe(
+      posts => this.posts = posts,
+      error => console.log(error),
+      () => this.postsLoading = false
     );
   }
 

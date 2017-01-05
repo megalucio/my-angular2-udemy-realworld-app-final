@@ -20,6 +20,10 @@ var PostsService = (function () {
         return this._http.get(this.postsUrl)
             .map(function (res) { return res.json(); });
     };
+    PostsService.prototype.getPostsFromUser = function (userId) {
+        return this._http.get(this.postsUrl + '?userId=' + userId)
+            .map(function (res) { return res.json(); });
+    };
     PostsService.prototype.getComments = function (postId) {
         return this._http.get(this.getPostUrl(postId) + '/comments')
             .map(function (res) { return res.json(); });

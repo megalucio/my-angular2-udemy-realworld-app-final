@@ -18,7 +18,7 @@ var PostsService = (function () {
     }
     PostsService.prototype.getPosts = function (filter) {
         var url = this.postsUrl;
-        if (filter)
+        if (filter && filter.userId != "")
             url += "?userId=" + filter.userId;
         return this._http.get(url)
             .map(function (res) { return res.json(); });

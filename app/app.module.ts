@@ -1,3 +1,4 @@
+import { PaginationComponent } from './pagination.component';
 import { SpinnerComponnent } from './spinner.component';
 import { PostsService } from './posts.service';
 import { NotFoundComponent } from './notfound.component';
@@ -34,7 +35,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     UserComponent,
     PostsComponent,
     NotFoundComponent,
-    SpinnerComponnent
+    SpinnerComponnent,
+    PaginationComponent
   ],
   providers:
   [

@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var pagination_component_1 = require("./pagination.component");
 var spinner_component_1 = require("./spinner.component");
 var posts_service_1 = require("./posts.service");
 var notfound_component_1 = require("./notfound.component");
@@ -46,7 +47,8 @@ AppModule = __decorate([
             user_component_1.UserComponent,
             posts_component_1.PostsComponent,
             notfound_component_1.NotFoundComponent,
-            spinner_component_1.SpinnerComponnent
+            spinner_component_1.SpinnerComponnent,
+            pagination_component_1.PaginationComponent
         ],
         providers: [
             users_service_1.UsersService,

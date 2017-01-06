@@ -33,7 +33,10 @@ import { Component, OnInit } from '@angular/core';
       </select>
       <spinner [visible]="postsLoading"></spinner>
       <ul class="list-group posts">
-        <li *ngFor="let post of posts" 
+
+        <pagination [items]="posts" [page-size]="pageSize" (page-changes)=onPageChanges($event)></pagination>
+      
+        <li *ngFor="let post of pagedPosts" 
             class="list-group-item" 
             (click)=onSelectPost(post) 
             [class.active]="currentPost == post">
@@ -68,47 +71,51 @@ import { Component, OnInit } from '@angular/core';
       </div>
   `
 })
-export class PostsComponent implements OnInit{ 
+export class PostsComponent implements OnInit {
 
-  posts;
+  posts = [];
+  pagedPosts;
   comments;
   users;
   postsLoading;
   loadingComments;
   currentPost;
+  pageSize = 10;
 
   constructor(
-    private _postsService: PostsService, 
+    private _postsService: PostsService,
     private _usersService: UsersService)
-  {}
+  { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.loadPosts();
     this.loadUsers();
   }
 
-  private loadUsers(){
+  private loadUsers() {
     this._usersService.getUsers().subscribe(
-          users => this.users = users,
-          error => console.log(error)
-        );
+      users => this.users = users,
+      error => console.log(error)
+    );
   }
 
-  private loadPosts(filter?){
+  private loadPosts(filter?) {
 
     this.postsLoading = true;
 
     this._postsService.getPosts(filter).subscribe(
-          posts => this.posts = posts,
-          error => console.log(error),
-          () => this.postsLoading = false
-        );
+      posts => {
+        this.posts = posts;
+        this.pagedPosts = this.posts.slice(0, this.pageSize);
+      },
+      error => console.log(error),
+      () => this.postsLoading = false
+    );
   }
 
-  onSelectPost(post){
+  onSelectPost(post) {
     this.comments = [];
     this.currentPost = post;
-
     this.loadingComments = true;
 
     this._postsService.getComments(post.id).subscribe(
@@ -118,8 +125,15 @@ export class PostsComponent implements OnInit{
     );
   }
 
-  onSelectUser(filter?){
+  onSelectUser(filter?) {
     this.loadPosts(filter);
+  }
+
+  onPageChanges(page) {
+    let firstElement = (page - 1) * this.pageSize;
+    let lastElement = (page - 1) * this.pageSize + this.pageSize;
+
+    this.pagedPosts = this.posts.slice(firstElement, lastElement);
   }
 
 }

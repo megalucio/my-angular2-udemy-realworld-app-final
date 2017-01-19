@@ -8,15 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var pagination_component_1 = require("./pagination.component");
-var spinner_component_1 = require("./spinner.component");
-var posts_service_1 = require("./posts.service");
+var pagination_component_1 = require("./shared/pagination.component");
+var spinner_component_1 = require("./shared/spinner.component");
+var posts_service_1 = require("./posts/posts.service");
 var notfound_component_1 = require("./notfound.component");
-var prevent_unsaved_changes_guard_1 = require("./prevent-unsaved-changes-guard");
-var users_service_1 = require("./users.service");
-var posts_component_1 = require("./posts.component");
-var users_component_1 = require("./users.component");
-var user_component_1 = require("./user.component");
+var prevent_unsaved_changes_guard_1 = require("./shared//prevent-unsaved-changes-guard");
+var users_service_1 = require("./users/users.service");
+var posts_component_1 = require("./posts/posts.component");
+var users_component_1 = require("./users/users.component");
+var user_component_1 = require("./users/user.component");
 var home_component_1 = require("./home.component");
 var app_routing_1 = require("./app.routing");
 var navbar_component_1 = require("./navbar.component");

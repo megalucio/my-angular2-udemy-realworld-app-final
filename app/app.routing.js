@@ -1,9 +1,9 @@
 "use strict";
-var prevent_unsaved_changes_guard_1 = require("./prevent-unsaved-changes-guard");
-var user_component_1 = require("./user.component");
-var users_component_1 = require("./users.component");
+var prevent_unsaved_changes_guard_1 = require("./shared/prevent-unsaved-changes-guard");
+var user_component_1 = require("./users/user.component");
+var users_component_1 = require("./users/users.component");
 var home_component_1 = require("./home.component");
-var posts_component_1 = require("./posts.component");
+var posts_component_1 = require("./posts/posts.component");
 var notfound_component_1 = require("./notfound.component");
 var router_1 = require("@angular/router");
 exports.routing = router_1.RouterModule.forRoot([

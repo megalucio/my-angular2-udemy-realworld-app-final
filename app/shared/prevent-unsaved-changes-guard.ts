@@ -1,5 +1,5 @@
-import { UserComponent } from './user.component';
-import { NavbarComponent } from './navbar.component';
+import { UserComponent } from '../users/user.component';
+import { NavbarComponent } from '../navbar.component';
 
 import { CanDeactivate} from '@angular/router';
 

@@ -1,5 +1,5 @@
-import { UsersService } from './users.service';
-import { User } from './user';
+import { UsersService } from '../users/users.service';
+import { User } from '../users/user';
 import { Validators } from '@angular/forms';
 import { PostsService } from './posts.service';
 import { Component, OnInit } from '@angular/core';

@@ -106,7 +106,7 @@ export class PostsComponent implements OnInit {
     this._postsService.getPosts(filter).subscribe(
       posts => {
         this.posts = posts;
-        this.pagedPosts = this.posts.slice(0, this.pageSize);
+        this.pagedPosts = _.take(this.posts, this.pageSize);
       },
       error => console.log(error),
       () => this.postsLoading = false
@@ -130,10 +130,8 @@ export class PostsComponent implements OnInit {
   }
 
   onPageChanges(page) {
-    let firstElement = (page - 1) * this.pageSize;
-    let lastElement = (page - 1) * this.pageSize + this.pageSize;
-
-    this.pagedPosts = this.posts.slice(firstElement, lastElement);
+    var startIndex = (page - 1)*this.pageSize;
+    this.pagedPosts = _.take(_.rest(this.posts, startIndex), this.pageSize);
   }
 
 }

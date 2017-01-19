@@ -31,7 +31,7 @@ var PostsComponent = (function () {
         this.postsLoading = true;
         this._postsService.getPosts(filter).subscribe(function (posts) {
             _this.posts = posts;
-            _this.pagedPosts = _this.posts.slice(0, _this.pageSize);
+            _this.pagedPosts = _.take(_this.posts, _this.pageSize);
         }, function (error) { return console.log(error); }, function () { return _this.postsLoading = false; });
     };
     PostsComponent.prototype.onSelectPost = function (post) {
@@ -45,9 +45,8 @@ var PostsComponent = (function () {
         this.loadPosts(filter);
     };
     PostsComponent.prototype.onPageChanges = function (page) {
-        var firstElement = (page - 1) * this.pageSize;
-        var lastElement = (page - 1) * this.pageSize + this.pageSize;
-        this.pagedPosts = this.posts.slice(firstElement, lastElement);
+        var startIndex = (page - 1) * this.pageSize;
+        this.pagedPosts = _.take(_.rest(this.posts, startIndex), this.pageSize);
     };
     return PostsComponent;
 }());
